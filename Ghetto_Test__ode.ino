@@ -9,9 +9,12 @@ bool yeet;
  
 byte cmd; // Stores the next byte of incoming data, which is a "command" to do something
 byte param; // Stores the 2nd byte, which is the command parameter
-
+int StartOverSpin = 0;
+int StartOverPush = 0;
 
 void rotate() {
+  if (StartOverSpin <= 1)
+  {
   digitalWrite(12,HIGH);
                     digitalWrite(11,LOW);
                     analogWrite(10,55);
@@ -22,12 +25,16 @@ void rotate() {
                     analogWrite(10,0);
                     digitalWrite(13,LOW);
                     yeet = false;
+                    StartOverSpin += 1;
+  }
                     
                     
 
 }
 
 void push() {
+  if (StartOverPush <= 1)
+  {
   digitalWrite(8,HIGH);
                     digitalWrite(7,LOW);
                     analogWrite(9,55);
@@ -38,7 +45,8 @@ void push() {
                     analogWrite(9,0);
                     digitalWrite(13,LOW);
                     delay(4000);
-
+                    StartOverPush += 1;
+  }
 }
 void setup() {
   // put your setup code here, to run once:
@@ -96,14 +104,28 @@ delay(8000); */
                 case 2: //roate the spinny things
                     c = 2;
                     yeet = true;
-                    if (yeet == true);
-                    {
-                      rotate();
-                    }
+                    rotate();
+                    
 break;
                     case 3: //move forward the pushy power
                     c = 3;
                     push();
+
+                    break;
+
+case 4:
+                    c = 4;
+                    digitalWrite(13,HIGH);
+                    StartOverSpin = 0;
+                    break;
+                    
+                    case 5:
+                    digitalWrite(13,HIGH);
+                    c = 5;
+                    StartOverPush = 0;
+                    break;
+                    
+                    
 
             }
            }
